@@ -108,9 +108,19 @@ export default {
           to: '/inspire'
         },
         {
-          icon: 'mdi-account',
-          title: 'login',
-          to: '/login'
+          icon: 'mdi-credit-card',
+          title: 'Pagamentos',
+          to: '/payment'
+        },
+        {
+          icon: 'mdi-database',
+          title: 'categorias',
+          to: '/category',
+        },
+        {
+          icon: 'mdi-food',
+          title: 'produtos',
+          to:'/products'
         }
       ],
       miniVariant: false,

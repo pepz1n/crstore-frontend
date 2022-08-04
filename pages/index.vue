@@ -1,83 +1,131 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <v-card class="logo py-4 d-flex justify-center">
-        <NuxtLogo />
-        <VuetifyLogo />
-      </v-card>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
+    <v-form>
+      <v-container>
+      <v-row>
+        <v-col
+            cols="5"
           >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+            <h1 style="font-size: 50px;margin-top: 45%; margin-left: 20%;">
+              <p style="font-family:'Gugi', cursive; font-size: 25px;">
+                <v-icon style="color:red  ; font-size: 105%;">
+                  mdi-hamburger
+                </v-icon>
+                Vem me comer, delicia!
+              </p>
+              <strong>
+                Seja bem vindo à CRStore
+              </strong>
+            </h1>
+          </v-col>
+          <v-col>
+            <v-container style="border: 2px solid grey  ; background-color: ivory;border-radius: 1%;width: 70%; margin-top: 13%; margin-left: 7%;" >
+            <v-container style="padding: 10%; background-color: ivory">
+              <v-row>
+                <v-col>
+                <v-text-field
+                  class=""
+                  label="Username"
+                  v-model="login.username"
+                  outlined
+                  placeholder="Username"
+                  color="red"
+                  prepend-inner-icon="mdi-email"
+                ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <v-text-field
+                      class=""
+                      label="Username"
+                      v-model="login.password"
+                      style="margin-top: -8%"
+                      outlined
+                      placeholder="Senha"
+                      color="red"
+                      prepend-inner-icon="mdi-lock"
+                    ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col style="margin-top:-10% ;">
+                   <a href="/login/register" class="" style="margin-top: -10%;color: red;">Esqueci minha senha</a>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <v-btn
+                    x-large
+                    block
+                    color="red"
+                    outlined
+                    @click="loginAmem"
+                  >Entrar</v-btn>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                   <p style="margin-top: -5%;color: black; text-align: center; font-size: 90%; margin: auto;">Não tem uma conta? <strong> <a style="color:red" href="/login/register">Registre-se</a> </strong></p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <hr>
+                </v-col>
+                <v-col>
+                  <hr>
+                </v-col>
+              </v-row>
+            </v-container>
+            </v-container>
+          </v-col>
+      </v-row>
+    </v-container>
+    </v-form>
 </template>
 
 <script>
 export default {
-  name: 'IndexPage'
+  name: 'LoginsPage',
+  layout: 'login',
+  data(){
+    return{
+      login:{
+        username: null,
+        password: null
+      }
+    }
+  },
+  methods:{
+    async loginAmem(){
+      let forget ={
+        username: this.login.username,
+        password: this.login.password
+      }
+      try {
+        let response = await this.$api.post('/users/login', forget)
+        console.log(response.data.type);
+        if(response.data.type == "sucess"){
+          console.log("carcule");
+          localStorage.setItem("forget-key", response.data.data.token)
+          this.$toast.success("Você esta logado")
+          this.$router.push("/products")
+        }else{
+          this.$toast.error(response.data.message)
+        }
+      } catch (error) {
+        this.$toast.error('Ocorreu um erro ao realizar o login!');
+      }
+    }
+  }
 }
 </script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+  a {
+    color: red;
+    text-decoration: none;
+  }
+</style>
+

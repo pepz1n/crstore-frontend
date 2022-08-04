@@ -81,6 +81,7 @@
                   prepend-inner-icon="mdi-lock"
                   required
                   :rules="rule"
+                  v-mask="['###.###.###-##']"
                 ></v-text-field>
                 </v-col>
                 <v-col>
@@ -92,6 +93,7 @@
                   style="margin-top: -8%"
                   placeholder="Celular"
                   color="red"
+                  v-mask="['(##) # ####-####', '(##) ####-####']"
                   prepend-inner-icon="mdi-cellphone"
                   required
                   :rules="rule"
@@ -139,6 +141,7 @@ import { METHODS } from 'http'
 
 export default {
   name: 'LoginsPage',
+  layout: 'login',
 
   data(){
     return{
@@ -175,8 +178,8 @@ export default {
         }
         let response = await this.$axios.$post('http://localhost:3333/users', user)
         if(response.type == "sucess"){
-          this.$router.push('/login')
-          return this.$toast(response.message)
+          this.$router.push('/')
+          return this.$toast.sucess(response.message)
         }
         if(response.type == "error"){
           return this.$toast.error(response.message)
