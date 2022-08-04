@@ -7,7 +7,7 @@
           >
             <h1 style="font-size: 50px;margin-top: 45%; margin-left: 20%;">
               <p style="font-family:'Gugi', cursive; font-size: 25px;">
-                <v-icon style="color:rgb(25, 191, 25)  ; font-size: 105%;">
+                <v-icon style="color:red  ; font-size: 105%;">
                   mdi-hamburger
                 </v-icon>
                 Vem me comer, delicia!
@@ -18,17 +18,16 @@
             </h1>
           </v-col>
           <v-col>
-            <v-container style="background-color: #202024;border-radius: 1%;width: 70%; margin-top: 13%; margin-left: 7%;" >
-            <v-container style="padding: 10%;">
+            <v-container style="border: 2px solid grey  ; background-color: ivory;border-radius: 1%;width: 70%; margin-top: 13%; margin-left: 7%;" >
+            <v-container style="padding: 10%; background-color: ivory">
               <v-row>
                 <v-col>
                 <v-text-field
                   class=""
                   outlined
                   placeholder="E-mail"
-                  color="rgb(25, 191, 25)"
+                  color="red"
                   prepend-inner-icon="mdi-email"
-                  background-color="#121214"
                 ></v-text-field>
                 </v-col>
               </v-row>
@@ -39,31 +38,29 @@
                       style="margin-top: -8%"
                       outlined
                       placeholder="Senha"
-                      color="rgb(25, 191, 25)"
+                      color="red"
                       prepend-inner-icon="mdi-lock"
-                      background-color="#121214"
                     ></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col style="margin-top:-10% ;">
-                   <a href="/login/register" class="" style="margin-top: -10%;color: rgb(25, 191, 25);">Esqueci minha senha</a>
+                   <a href="/login/register" class="" style="margin-top: -10%;color: red;">Esqueci minha senha</a>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col>
                   <v-btn
-                    dark
                     x-large
                     block
-                    color="rgb(25, 191, 25)"
+                    color="red"
                     outlined
                   >Entrar</v-btn>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col>
-                   <p style="margin-top: -5%;color: white; text-align: center; font-size: 90%; margin: auto;">Não tem uma conta? <a style="color:rgb(25, 191, 25)" href="#">Registre-se</a></p>
+                   <p style="margin-top: -5%;color: black; text-align: center; font-size: 90%; margin: auto;">Não tem uma conta? <strong> <a style="color:red" href="/login/register">Registre-se</a> </strong></p>
                 </v-col>
               </v-row>
               <v-row>
@@ -91,7 +88,7 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
   a {
-    color: rgb(25, 191, 25);
+    color: red;
     text-decoration: none;
   }
 </style>
