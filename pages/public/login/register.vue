@@ -200,15 +200,13 @@ export default {
 
         }
         let response = await this.$axios.$post('http://localhost:3333/users', user)
-        if(response.type == "sucess"){
-          this.$router.push('/')
-          return this.$toast.sucess(response.message)
+        if(response.type === "sucess"){
+          this.$toast.success(response.message)
+          return this.$router.push({ name: 'index' });
         }
-        if(response.type == "error"){
-          return this.$toast.error(response.message)
-        }
+        return this.$toast.error(response.message) 
       } catch (error) {
-        this.$toast.error("Ocorreu um erro ao realizar o cadastro!")
+        this.$toast.error(error.message)
       }
     },
     toggleShow(){

@@ -57,6 +57,11 @@ export default {
       fixed: false,
       items: [
         {
+          icon: 'mdi-home',
+          title:'home',
+          to: '/'
+        },
+        {
           icon: 'mdi-credit-card',
           title: 'Pagamentos',
           to: '/admin/payment'
@@ -87,6 +92,26 @@ export default {
       rightDrawer: false,
       title: 'ADMIN CRStore'
     }
+  },
+ 
+  async created () {
+    await this.validateLogin();
+  },
+
+  methods :{
+    async validateLogin (){
+      let token = localStorage.getItem('forget-key')
+      if(!token.length){
+        this.$toast.info('Você não tem permissão para acessar esse recurso');
+        return this.$router.push({ name: 'index' });
+      }
+      let response = await this.$axios.post('http://localhost:3333/users/verify-token', {"authorization": `Bearer ${token}`})
+
+      if (response.type == 'unauthorized') {
+        this.$toast.info('Você não tem permissão para acessar esse recurso');
+        return this.$router.push({ name: 'index' });
+      }
+    } 
   }
 }
 </script>
