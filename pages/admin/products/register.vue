@@ -65,7 +65,7 @@
     </v-btn>
     <v-btn
       outlined
-      to="/product"
+      to="/admin/products"
       color="red"
     >
       cancelar
@@ -76,6 +76,7 @@
 <script>
 export default {
   name: 'CadastroproductsPage',
+  layou: 'admin',
 
   data () {
     return {

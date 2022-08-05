@@ -53,6 +53,7 @@
 <script>
 export default {
   name: 'ConsultapaymentPage',
+  layout: 'admin',
 
   data () {
     return{

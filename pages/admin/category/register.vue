@@ -1,13 +1,13 @@
 <template>
   <v-container>
-    <h1 style="text-align: center">Cadastro de metodos de pagamento</h1>
+    <h1 style="text-align: center">Cadastro de categorias</h1>
     <hr>
     <v-form v-model="valid">
       <v-container>
         <v-row>
           <v-col>
             <v-text-field
-              v-model="payment.id"
+              v-model="categoria.id"
               placeholder="codigo"
               label="codigo"
               disabled
@@ -18,7 +18,7 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="payment.name"
+              v-model="categoria.name"
               placeholder="Nome"
               label="Nome"
               :rules="rule"
@@ -38,7 +38,7 @@
     </v-btn>
     <v-btn
       outlined
-      to="/payment"
+      to="/admin/category"
       color="red"
     >
       cancelar
@@ -48,12 +48,13 @@
 
 <script>
 export default {
-  name: 'CadastroPaymentsPage',
+  name: 'CadastrocategoriasPage',
+  layout: 'admin',
 
   data () {
     return {
       valid: false,
-      payment: {  
+      categoria: {  
         id: null,
         name:null
       },
@@ -72,18 +73,18 @@ export default {
   methods: {
     async persistir () {
       try {
-         let payment = {
-        name: this.payment.name,
+         let categoria = {
+        name: this.categoria.name,
         };
 
-        if(!this.payment.id){  
-          let response = await this.$axios.$post('http://localhost:3333/payment', payment);
-          this.$router.push('/payment')
+        if(!this.categoria.id){  
+          let response = await this.$api.$post('/category', categoria);
+          this.$router.push('/category')
           return this.$toast.success(`${response.data.name} cadastrado com sucesso`)
         }
 
-        await this.$axios.$post(`http://localhost:3333/payment/${this.payment.id}`, payment )
-        this.$router.push('/payment')
+        await this.$api.$post(`/category/${this.categoria.id}`, categoria )
+        this.$router.push('/category')
         this.$toast.success('Cadastro atualizado com sucesso!');
       } catch (error) {
         this.$toast.error('Ocorreu um erro ao realizar o cadastro!');
@@ -91,8 +92,8 @@ export default {
       }
     },
     async getById (id) {
-      let payment = await this.$axios.$get(`http://localhost:3333/payment/${id}`);
-      this.payment = payment.data
+      let categoria = await this.$api.$get(`/category/${id}`);
+      this.categoria = categoria.data
     },
   }
 }

@@ -53,6 +53,7 @@
 <script>
 export default {
   name: 'ConsultaproductPage',
+  layout: 'admin',
 
   data () {
     return{

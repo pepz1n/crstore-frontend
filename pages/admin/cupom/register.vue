@@ -79,7 +79,7 @@
     </v-btn>
     <v-btn
       outlined
-      to="/cupom"
+      to="/admin/cupom"
       color="red"
     >
       cancelar
@@ -90,6 +90,7 @@
 <script>
 export default {
   code: 'CadastrocategoriasPage',
+  layout: 'admin',
 
   data () {
     return {

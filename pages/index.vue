@@ -118,7 +118,7 @@ export default {
           console.log("carcule");
           localStorage.setItem("forget-key", response.data.data.token)
           this.$toast.success("Você esta logado")
-          this.$router.push("/products")
+          this.$router.push("/admin")
         }else{
           this.$toast.error(response.data.message)
         }

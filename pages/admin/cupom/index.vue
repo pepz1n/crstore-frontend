@@ -1,13 +1,13 @@
 <template>
   <v-container>
-    <h1>Consulta de categorias</h1>
+    <h1>Consulta de Cupons</h1>
     <hr>
     <v-row style="margin-top: 2%">
       <v-col
         cols="2"
       >
         <v-btn
-          to="/category/register"
+          to="/admin/cupom/register"
           color="red"
         >
          <v-icon>
@@ -24,7 +24,7 @@
       >
       <v-data-table
         :headers="headers"
-        :items="categorias"
+        :items="cupom"
         :items-per-page="10"
         class="elevation-1"
       >
@@ -52,7 +52,8 @@
 
 <script>
 export default {
-  name: 'ConsultacategoriasPage',
+  name: 'ConsultacupomPage',
+  layout: 'admin',
 
   data () {
     return{
@@ -64,10 +65,28 @@ export default {
           value: 'id',
         },
         {
-          text: 'Titulo',
+          text: 'CODE',
           align: 'center',
           sortable: true,
-          value: 'name',
+          value: 'code',
+        },
+        {
+          text: 'Tipo',
+          align: 'center',
+          sortable: true,
+          value: 'type',
+        },
+        {
+          text: 'Valor',
+          align: 'center',
+          sortable: true,
+          value: 'value',
+        },
+        {
+          text: 'Usos',
+          align: 'center',
+          sortable: true,
+          value: 'uses',
         },
         // {
         //   text: 'Sinopse',
@@ -77,36 +96,36 @@ export default {
         // },
         { text: "", value: "actions" }
       ],
-      categorias: []
+      cupom: []
     }
   },
 
   
   methods: {
-     async getCategory (){
-      let categorias = await this.$api.$get(`/category`)
-      this.categorias = categorias.data
+     async getCupom (){
+      let cupom = await this.$api.$get(`/cupom`)
+      this.cupom = cupom.data
      },
-     async deletar (categoriaDelete){
+     async deletar (cupomDelete){
       try{
-        if(confirm(`Deseja deletar a categoria : ${categoriaDelete.nome} ?`)){
-          let response = await this.$api.$post('/category/destroy',{id: categoriaDelete.id} )
+        if(confirm(`Deseja deletar O cupom : ${cupomDelete.name} ?`)){
+          let response = await this.$api.$post('/cupom/destroy',{id: cupomDelete.id} )
           this.$toast.success(response.message)
-          this.getCategory();
+          this.getCupom();
         }
       }catch(error){
         this.$toast.error(error.message)
       }
      },
-     async editar (category) {
+     async editar (cupom) {
       this.$router.push({
-        name: 'category-register',
-        params: { id: category.id }
+        name: 'admin-cupom-register',
+        params: { id: cupom.id }
       });
     }
   },
   beforeMount(){
-    this.getCategory()
+    this.getCupom()
   }
 }
 

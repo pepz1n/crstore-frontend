@@ -1,20 +1,11 @@
 <template>
   <v-container>
-    <h1>Consulta de Cupons</h1>
+    <h1>Consulta de Pedidos</h1>
     <hr>
     <v-row style="margin-top: 2%">
       <v-col
         cols="2"
       >
-        <v-btn
-          to="/cupom/register"
-          color="red"
-        >
-         <v-icon>
-          mdi-plus
-         </v-icon> 
-         cadastro
-        </v-btn>
       </v-col>
     </v-row>
     <v-container>
@@ -24,23 +15,22 @@
       >
       <v-data-table
         :headers="headers"
-        :items="cupom"
+        :items="order"
         :items-per-page="10"
         class="elevation-1"
       >
+      <template v-slot:item.status="{ item }">
+          <p 
+            :style="item.status === 'criado' ? 'color: blue' : 'cancelado' ? 'color: red' : 'A caminho' ? 'color: yellow' : 'color: green' "
+          > {{ item.status }} </p>
+        </template>
         <template v-slot:item.actions="{ item }">
           <v-icon
             small
             class="mr-2"
             @click="editar(item)"
           >
-            mdi-pencil
-          </v-icon>
-          <v-icon
-            small
-            @click="deletar(item)"
-          >
-            mdi-delete
+            mdi-magnify
           </v-icon>
         </template>
       </v-data-table>
@@ -52,7 +42,8 @@
 
 <script>
 export default {
-  name: 'ConsultacupomPage',
+  name: 'ConsultaOrderPage',
+  layout: 'admin',
 
   data () {
     return{
@@ -64,28 +55,28 @@ export default {
           value: 'id',
         },
         {
-          text: 'CODE',
+          text: 'Cliente',
           align: 'center',
           sortable: true,
-          value: 'code',
+          value: 'idUserCostumer.name',
         },
         {
-          text: 'Tipo',
+          text: 'Entregador',
           align: 'center',
           sortable: true,
-          value: 'type',
+          value: 'idUserDeliver.name',
         },
         {
           text: 'Valor',
           align: 'center',
           sortable: true,
-          value: 'value',
+          value: 'total',
         },
         {
-          text: 'Usos',
+          text: 'Status',
           align: 'center',
           sortable: true,
-          value: 'uses',
+          value: 'status',
         },
         // {
         //   text: 'Sinopse',
@@ -95,36 +86,36 @@ export default {
         // },
         { text: "", value: "actions" }
       ],
-      cupom: []
+      order: []
     }
   },
 
   
   methods: {
-     async getCupom (){
-      let cupom = await this.$api.$get(`/cupom`)
-      this.cupom = cupom.data
+     async getOrder (){
+      let order = await this.$api.$get(`/order`)
+      this.order = order.data
      },
-     async deletar (cupomDelete){
+     async deletar (orderDelete){
       try{
-        if(confirm(`Deseja deletar O cupom : ${cupomDelete.name} ?`)){
-          let response = await this.$api.$post('/cupom/destroy',{id: cupomDelete.id} )
+        if(confirm(`Deseja deletar a order : ${orderDelete.id} ?`)){
+          let response = await this.$api.$post('/order/destroy',{id: orderDelete.id} )
           this.$toast.success(response.message)
-          this.getCupom();
+          this.getorder();
         }
       }catch(error){
         this.$toast.error(error.message)
       }
      },
-     async editar (cupom) {
+     async editar (order) {
       this.$router.push({
-        name: 'cupom-register',
-        params: { id: cupom.id }
+        name: 'admin-order-view',
+        params: { id: order.id }
       });
     }
   },
   beforeMount(){
-    this.getCupom()
+    this.getOrder()
   }
 }
 
