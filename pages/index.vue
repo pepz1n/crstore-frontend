@@ -43,6 +43,7 @@
                       outlined
                       placeholder="Senha"
                       color="red"
+                      type="password"
                       prepend-inner-icon="mdi-lock"
                     ></v-text-field>
                 </v-col>
