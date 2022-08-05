@@ -34,7 +34,7 @@
                   color="red"
                   prepend-inner-icon="mdi-account"
                   required
-                  :rules="rule"
+                  :rules="[rule.password]"
                 ></v-text-field>
                 </v-col>
                 <v-col>
@@ -46,13 +46,15 @@
                   placeholder="Senha"
                   color="red"
                   prepend-inner-icon="mdi-lock"
+                  :append-icon="show ? 'mdi-eye-off' : 'mdi-eye'"
                   required
-                  type="password"
-                  :rules="rule"
+                  @click:append="toggleShow"
+                  :type="show ? 'text' : 'password'"
+                  :rules="[rule.password]"
                 ></v-text-field>
                 </v-col>
               </v-row>
-              <v-row>
+              <v-row style="margin-top: -4%">
                 <v-col>
                   <v-text-field
                   class=""
@@ -64,7 +66,24 @@
                   color="red"
                   prepend-inner-icon="mdi-email"
                   required
-                  :rules="rule"
+                  :rules="[rule.password]"
+                ></v-text-field>
+                </v-col>
+                <v-col>
+                  <v-text-field
+                  class=""
+                  v-model="user.password2"
+                  outlined
+                  style="margin-top: -8%"
+                  label="Confirme sua senha"
+                  placeholder="Confirme sua senha"
+                  color="red"
+                  prepend-inner-icon="mdi-lock"
+                  :append-icon="show2 ? 'mdi-eye-off' : 'mdi-eye'"
+                  required
+                  @click:append="toggleShow2"
+                  :type="show2 ? 'text' : 'password'"
+                  :rules="[rule.password, rule.equalPassword]"
                 ></v-text-field>
                 </v-col>
               </v-row>
@@ -80,7 +99,7 @@
                   color="red"
                   prepend-inner-icon="mdi-lock"
                   required
-                  :rules="rule"
+                  :rules="[rule.password]"
                   v-mask="['###.###.###-##']"
                 ></v-text-field>
                 </v-col>
@@ -96,7 +115,7 @@
                   v-mask="['(##) # ####-####', '(##) ####-####']"
                   prepend-inner-icon="mdi-cellphone"
                   required
-                  :rules="rule"
+                  :rules="[rule.password]"
                 ></v-text-field>
                 </v-col>
               </v-row>
@@ -113,7 +132,7 @@
                     item-value="value"
                     clearable
                     required
-                  :rules="rule"
+                    :rules="[rule.password]"
                   >
                   </v-autocomplete>
                 </v-col>
@@ -146,17 +165,21 @@ export default {
   data(){
     return{
       valid: false,
+      show: false,
+      show2:false,
       user:{
         username: null,
         name: null,
         phone: null,
         password: null,
         role: null,
-        cpf:null
+        cpf:null,
+        password2:null
       },
-      rule:[
-        v => !!v || 'Esse campo é obrigatorio'
-      ],
+      rule:{
+        password: v => !!v || 'Esse campo é obrigatorio',
+        equalPassword: v => v === this.user.password || 'Senha diferente!'
+      },
       roles: [{"name": "Cliente", "value": "customer"}, {"name": "Entregador", "value": "deliver"}]
     }
   },
@@ -187,6 +210,12 @@ export default {
       } catch (error) {
         this.$toast.error("Ocorreu um erro ao realizar o cadastro!")
       }
+    },
+    toggleShow(){
+      this.show = !this.show
+    },
+    toggleShow2(){
+      this.show2 = !this.show2
     }
   }
 }

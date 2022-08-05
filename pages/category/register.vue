@@ -77,12 +77,12 @@ export default {
         };
 
         if(!this.categoria.id){  
-          let response = await this.$axios.$post('http://localhost:3333/category', categoria);
+          let response = await this.$api.$post('/category', categoria);
           this.$router.push('/category')
           return this.$toast.success(`${response.data.name} cadastrado com sucesso`)
         }
 
-        await this.$axios.$post(`http://localhost:3333/category/${this.categoria.id}`, categoria )
+        await this.$api.$post(`/category/${this.categoria.id}`, categoria )
         this.$router.push('/category')
         this.$toast.success('Cadastro atualizado com sucesso!');
       } catch (error) {
@@ -91,7 +91,7 @@ export default {
       }
     },
     async getById (id) {
-      let categoria = await this.$axios.$get(`http://localhost:3333/category/${id}`);
+      let categoria = await this.$api.$get(`/category/${id}`);
       this.categoria = categoria.data
     },
   }

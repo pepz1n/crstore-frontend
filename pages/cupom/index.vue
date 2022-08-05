@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1>Consulta de Metodos de pagamento</h1>
+    <h1>Consulta de Cupons</h1>
     <hr>
     <v-row style="margin-top: 2%">
       <v-col

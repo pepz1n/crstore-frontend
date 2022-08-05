@@ -27,6 +27,7 @@
                   label="Username"
                   v-model="login.username"
                   outlined
+                  required
                   placeholder="Username"
                   color="red"
                   prepend-inner-icon="mdi-email"
@@ -43,7 +44,9 @@
                       outlined
                       placeholder="Senha"
                       color="red"
-                      type="password"
+                      :append-icon="show ? 'mdi-eye-off' : 'mdi-eye'"
+                      @click:append="toggleShow"
+                      :type="show ? 'text' : 'password'"
                       prepend-inner-icon="mdi-lock"
                     ></v-text-field>
                 </v-col>
@@ -91,10 +94,15 @@ export default {
   layout: 'login',
   data(){
     return{
+      valid: false,
+      show:false,
       login:{
         username: null,
         password: null
-      }
+      },
+      rule: [
+        v => !!v || 'Esse campo é obrigatorio'
+      ]
     }
   },
   methods:{
@@ -117,7 +125,10 @@ export default {
       } catch (error) {
         this.$toast.error('Ocorreu um erro ao realizar o login!');
       }
-    }
+    },
+    toggleShow(){
+      this.show = !this.show
+    },
   }
 }
 </script>
