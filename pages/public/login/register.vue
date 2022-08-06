@@ -202,7 +202,7 @@ export default {
         let response = await this.$axios.$post('http://localhost:3333/users', user)
         if(response.type === "sucess"){
           this.$toast.success(response.message)
-          return this.$router.push({ name: 'index' });
+          return this.$router.push({ name: 'public-login' });
         }
         return this.$toast.error(response.message) 
       } catch (error) {

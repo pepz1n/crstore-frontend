@@ -7,6 +7,30 @@
       fixed
       app
     >
+      <v-list-group
+        :value="true"
+        prepend-icon="mdi-account-circle"
+        v-if="help"
+      >
+        <template v-slot:activator>
+          <v-list-item-title>{{user[0].title}}</v-list-item-title>
+        </template>
+        <v-list-item
+          to="/public/user/orders"
+        >
+          <strong>Meus Dados</strong>
+        </v-list-item>
+        <v-list-item
+          to="/public/user/data"
+        >
+          <strong>Meus Pedidos</strong>
+        </v-list-item>
+        <v-list-item
+          @click="logout"
+        >
+          <strong>Logout</strong>
+        </v-list-item>
+      </v-list-group>
       <v-list>
         <v-list-item
           v-for="(item, i) in items"
@@ -55,6 +79,8 @@ export default {
       clipped: false,
       drawer: false,
       fixed: false,
+      help: false,
+      user: [],
       items: [
         {
           icon: 'mdi-home',
@@ -99,11 +125,20 @@ export default {
   },
 
   methods :{
+    logout(){
+      try {
+        localStorage.setItem('forget-key', "")
+        return this.$router.push({ name: 'public-login' });
+      } catch (error) {
+        return this.$toast.info('Erro');
+      }
+    },
+
     async validateLogin (){
       let token = localStorage.getItem('forget-key')
       if(!token.length){
         this.$toast.info('Você não tem permissão para acessar esse recurso');
-        return this.$router.push({ name: 'index' });
+        return this.$router.push({ name: 'public-login' });
       }
       let response = await this.$axios.post('http://localhost:3333/users/verify-token', {"authorization": `Bearer ${token}`})
 
@@ -111,6 +146,12 @@ export default {
         this.$toast.info('Você não tem permissão para acessar esse recurso');
         return this.$router.push({ name: 'index' });
       }
+      this.help = true
+      this.user.unshift({
+          icon: 'mdi-account',
+          title: `Olá ${response.data.name}`,
+          to: '/public/user'
+        })
     } 
   }
 }
