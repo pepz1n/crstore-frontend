@@ -11,14 +11,20 @@
         :value="true"
         prepend-icon="mdi-account-circle"
         v-if="help"
+        style="color:red;"
       >
         <template v-slot:activator>
           <v-list-item-title>{{user[0].title}}</v-list-item-title>
-        </template>
+        </template >
         <v-list-item
           to="/public/user/orders"
         >
           <strong>Meus Dados</strong>
+        </v-list-item>
+        <v-list-item
+          to="/public/user/adress"
+        >
+          <strong>Meus Endereços</strong>
         </v-list-item>
         <v-list-item
           to="/public/user/data"

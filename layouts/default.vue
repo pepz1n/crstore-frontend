@@ -8,6 +8,7 @@
       app
     >
     <v-list-group
+        color="red"
         :value="true"
         prepend-icon="mdi-account-circle"
         v-if="help"
@@ -15,17 +16,40 @@
         <template v-slot:activator>
           <v-list-item-title>{{user[0].title}}</v-list-item-title>
         </template>
-        <v-list-item
-          to="/public/user/data"
+        <v-list-group
+        color="red"
+        :value="true"
+        prepend-icon="mdi-data"
+        > <template v-slot:activator>
+          <v-list-item-title style="">Meus Dados</v-list-item-title>
+        </template>
+          <v-list-item
+            color="red"
+            to="/public/user/data"
+          >
+            Informações
+          </v-list-item>
+          <v-list-item
+            color="red"
+            to="/public/user/data/password"
+          >
+            Trocar senha
+          </v-list-item>
+          <v-list-item
+          color="red"
+          to="/public/user/adress"
         >
-          <strong>Meus Dados</strong>
+          Meus Endereços
         </v-list-item>
+        </v-list-group>
         <v-list-item
+          color="red"
           to="/public/user/orders"
         >
           <strong>Meus Pedidos</strong>
         </v-list-item>
         <v-list-item
+          color="red"
           @click="logout"
         >
           <strong>Logout</strong>
@@ -91,7 +115,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'ADMIN CRStore'
+      title: 'CRStore'
     }
   },
   async created () {
@@ -127,6 +151,13 @@ export default {
         }
         )
         return this.$router.push({ name: 'index' });
+      }else if(response.data.type == 'expired'){
+        this.$toast.info('Sua sessão expirou faça login novamente');
+        this.items.unshift({
+          icon: 'mdi-account',
+          title: 'Login',
+          to: '/public/login'
+        })
       }else{
         this.$toast.success("Bem vindo chefinho!")
         this.help = true
@@ -154,11 +185,6 @@ export default {
           icon: 'mdi-card',
           title: 'Cupons',
           to:'/admin/cupom'
-        },
-        {
-          icon: 'mdi-notebook',
-          title: 'Pedidos',
-          to:'/admin/order'
         },
         {
           icon: 'mdi-notebook',
