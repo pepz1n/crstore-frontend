@@ -1,13 +1,13 @@
 <template>
   <v-container>
-    <h1>Consulta de Metodos de pagamento</h1>
+    <h1>Consulta de Produtos</h1>
     <hr>
     <v-row style="margin-top: 2%">
       <v-col
         cols="2"
       >
         <v-btn
-          to="/products/register"
+          to="/admin/products/register"
           color="red"
         >
          <v-icon>
@@ -113,7 +113,7 @@ export default {
      },
      async editar (product) {
       this.$router.push({
-        name: 'products-register',
+        name: 'admin-products-register',
         params: { id: product.id }
       });
     }

@@ -1,20 +1,11 @@
 <template>
   <v-container>
-    <h1>Meus endereços</h1>
+    <h1>Consulta de Pedidos</h1>
     <hr>
     <v-row style="margin-top: 2%">
       <v-col
         cols="2"
       >
-        <v-btn
-          to="/public/user/adress/register"
-          color="red"
-        >
-         <v-icon>
-          mdi-plus
-         </v-icon> 
-         cadastro
-        </v-btn>
       </v-col>
     </v-row>
     <v-container>
@@ -24,23 +15,28 @@
       >
       <v-data-table
         :headers="headers"
-        :items="adresses"
+        :items="order"
         :items-per-page="10"
         class="elevation-1"
       >
+      <template v-slot:item.status="{ item }">
+          <p 
+            :style="item.status === 'criado' ? 'color: blue' : 'cancelado' ? 'color: red' : 'A caminho' ? 'color: yellow' : 'color: green' "
+          > {{ item.status }} </p>
+        </template>
         <template v-slot:item.actions="{ item }">
           <v-icon
             small
             class="mr-2"
             @click="editar(item)"
           >
-            mdi-pencil
+            mdi-magnify
           </v-icon>
           <v-icon
             small
             @click="deletar(item)"
           >
-            mdi-delete
+            mdi-cancel
           </v-icon>
         </template>
       </v-data-table>
@@ -52,7 +48,7 @@
 
 <script>
 export default {
-  name: 'ConsultaadressesPage',
+  name: 'ConsultaOrderPage',
   layout: 'default',
 
   data () {
@@ -65,22 +61,28 @@ export default {
           value: 'id',
         },
         {
-          text: 'CEP',
+          text: 'Cliente',
           align: 'center',
           sortable: true,
-          value: 'zip_code',
+          value: 'idUserCostumer.name',
         },
         {
-          text: 'Cidade',
+          text: 'Entregador',
           align: 'center',
           sortable: true,
-          value: 'city',
+          value: 'idUserDeliver.name',
         },
         {
-          text: 'Numero',
+          text: 'Valor',
           align: 'center',
           sortable: true,
-          value: 'number_forget',
+          value: 'total',
+        },
+        {
+          text: 'Status',
+          align: 'center',
+          sortable: true,
+          value: 'status',
         },
         // {
         //   text: 'Sinopse',
@@ -90,36 +92,36 @@ export default {
         // },
         { text: "", value: "actions" }
       ],
-      adresses: []
+      order: []
     }
   },
 
   
   methods: {
-     async getAdress (){
-      let adresses = await this.$api.$get(`/adress`)
-      this.adresses = adresses.data
+     async getOrder (){
+      let order = await this.$api.$get(`/order/get-all-orders-by-token`)
+      this.order = order.data
      },
-     async deletar (categoriaDelete){
+     async deletar (orderDelete){
       try{
-        if(confirm(`Deseja deletar o endereco : ${categoriaDelete.id} ?`)){
-          let response = await this.$api.$post('/adress/destroy',{id: categoriaDelete.id} )
+        if(confirm(`Deseja cancelar a order : ${orderDelete.id} ?`)){
+          let response = await this.$api.$post('/order/cancel-customer',{id: orderDelete.id} )
           this.$toast.success(response.message)
-          await this.getAdress();
+          this.getorder();
         }
       }catch(error){
         this.$toast.error(error.message)
       }
      },
-     async editar (adresses) {
+     async editar (order) {
       this.$router.push({
-        name: 'public-user-adress-register',
-        params: { id: adresses.id }
+        name: 'public-user-order-view',
+        params: { id: order.id }
       });
     }
   },
-  async beforeMount(){
-    await this.getAdress()
+  beforeMount(){
+    this.getOrder()
   }
 }
 

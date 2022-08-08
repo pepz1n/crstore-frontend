@@ -7,7 +7,7 @@
         cols="2"
       >
         <v-btn
-          to="/payment/register"
+          to="/admin/payment/register"
           color="red"
         >
          <v-icon>
@@ -101,7 +101,7 @@ export default {
      },
      async editar (payment) {
       this.$router.push({
-        name: 'payment-register',
+        name: 'admin-payment-register',
         params: { id: payment.id }
       });
     }

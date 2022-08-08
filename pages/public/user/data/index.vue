@@ -117,8 +117,8 @@ export default {
     }
   },
     
-  created () {
-    this.getById()
+  async created () {
+    await this.getById()
   },
 
   methods: {

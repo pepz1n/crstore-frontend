@@ -164,9 +164,9 @@ export default {
          let adress = {
           city: this.adress.city,
           state: this.adress.state,
-          zip_code: this.adress.CEP,
+          zip_code: this.adress.zip_code,
           district: this.adress.district,
-          number:this.adress.number,
+          number:this.adress.number_forget,
           street: this.adress.street
         };
 

@@ -10,6 +10,7 @@
               v-model="product.id"
               placeholder="codigo"
               label="codigo"
+              color="red"
               disabled
               outlined
             />
@@ -22,6 +23,7 @@
               placeholder="Nome"
               label="Nome"
               :rules="rule"
+              color="red"
               required
               outlined
             />
@@ -31,6 +33,7 @@
               v-model="product.price"
               placeholder="Preço"
               label="Preço"
+              color="red"
               :rules="rule"
               required
               v-mask="['#.##','#####.##','####.##','###.##','##.##',]"
@@ -116,12 +119,12 @@ export default {
         if(!this.product.id){  
           console.log(product);
           let response = await this.$api.$post('/product', product);
-          this.$router.push('/products')
+          this.$router.push('/admin/products')
           return this.$toast.success(`${response.data.name} cadastrado com sucesso`)
         }
 
         await this.$api.$post(`/product/${this.product.id}`, product )
-        this.$router.push('/products')
+        this.$router.push('/admin/products')
         this.$toast.success('Cadastro atualizado com sucesso!');
       } catch (error) {
         this.$toast.error('Ocorreu um erro ao realizar o cadastro!');

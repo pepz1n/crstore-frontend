@@ -10,6 +10,7 @@
               v-model="categoria.id"
               placeholder="codigo"
               label="codigo"
+              color="red"
               disabled
               outlined
             />
@@ -23,6 +24,7 @@
               label="Nome"
               :rules="rule"
               required
+              color="red"
               outlined
             />
           </v-col>
@@ -79,12 +81,12 @@ export default {
 
         if(!this.categoria.id){  
           let response = await this.$api.$post('/category', categoria);
-          this.$router.push('/category')
+          this.$router.push('/admin/category')
           return this.$toast.success(`${response.data.name} cadastrado com sucesso`)
         }
 
         await this.$api.$post(`/category/${this.categoria.id}`, categoria )
-        this.$router.push('/category')
+        this.$router.push('/admin/category')
         this.$toast.success('Cadastro atualizado com sucesso!');
       } catch (error) {
         this.$toast.error('Ocorreu um erro ao realizar o cadastro!');

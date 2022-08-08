@@ -17,7 +17,7 @@
           <v-list-item-title>{{user[0].title}}</v-list-item-title>
         </template >
         <v-list-item
-          to="/public/user/orders"
+          to="/public/user/order"
         >
           <strong>Meus Dados</strong>
         </v-list-item>

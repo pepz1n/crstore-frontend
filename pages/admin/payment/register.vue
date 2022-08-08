@@ -79,7 +79,7 @@ export default {
 
         if(!this.payment.id){  
           let response = await this.$api.$post('/payment', payment);
-          this.$router.push('/payment')
+          this.$router.push('/admin/payment')
           return this.$toast.success(`${response.data.name} cadastrado com sucesso`)
         }
 

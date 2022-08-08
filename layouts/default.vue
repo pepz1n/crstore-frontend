@@ -44,7 +44,7 @@
         </v-list-group>
         <v-list-item
           color="red"
-          to="/public/user/orders"
+          to="/public/user/order"
         >
           <strong>Meus Pedidos</strong>
         </v-list-item>

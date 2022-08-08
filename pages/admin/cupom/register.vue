@@ -130,12 +130,12 @@ export default {
 
         if(!this.cupom.id){  
           let response = await this.$api.$post('/cupom', cupom);
-          this.$router.push('/cupom')
+          this.$router.push('/admin/cupom')
           return this.$toast.success(`${response.data.code} cadastrado com sucesso`)
         }
 
         await this.$api.$post(`/cupom/${this.$route.params.id}`, cupom )
-        this.$router.push('/cupom')
+        this.$router.push('/admin/cupom')
         this.$toast.success('Cadastro atualizado com sucesso!');
       } catch (error) {
         this.$toast.error('Ocorreu um erro ao realizar o cadastro!');
