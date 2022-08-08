@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1>Consulta de Pedidos</h1>
+    <h1>Pedidos Diponíveis para Entregar</h1>
     <hr>
     <v-row style="margin-top: 2%">
       <v-col
@@ -19,6 +19,11 @@
         :items-per-page="10"
         class="elevation-1"
       >
+      <template v-slot:item.status="{ item }">
+          <p 
+            :style="item.status === 'criado' ? 'color: blue' : item.status === 'cancelado' ? 'color: red' : item.status === 'A caminho' ? 'color: yellow' : 'color: green' "
+          > {{ item.status }} </p>
+        </template>
         <template v-slot:item.actions="{ item }">
           <v-icon
             small
@@ -26,6 +31,12 @@
             @click="editar(item)"
           >
             mdi-magnify
+          </v-icon>
+          <v-icon
+            small
+            @click="deletar(item)"
+          >
+            mdi-cancel
           </v-icon>
         </template>
       </v-data-table>
@@ -56,10 +67,10 @@ export default {
           value: 'idUserCostumer.name',
         },
         {
-          text: 'Entregador',
+          text: 'Rua',
           align: 'center',
           sortable: true,
-          value: 'idUserDeliver.name',
+          value: 'idAdress.street',
         },
         {
           text: 'Valor',
@@ -88,20 +99,18 @@ export default {
   
   methods: {
      async getOrder (){
-      let order = await this.$api.$get(`/order/get-all-orders-by-token`)
-      console.log(order);
+      let order = await this.$api.$get(`/order/get-all-delivered`)
       this.order = order.data
-      console.log(this.order);
      },
      async editar (order) {
       this.$router.push({
-        name: 'public-user-deliver-info-info',
+        name: 'public-user-deliver-deliver-info',
         params: { id: order.id }
       });
     }
   },
-  async beforeMount(){
-    await this.getOrder()
+  beforeMount(){
+    this.getOrder()
   }
 }
 

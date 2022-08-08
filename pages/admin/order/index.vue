@@ -21,7 +21,7 @@
       >
       <template v-slot:item.status="{ item }">
           <p 
-            :style="item.status === 'criado' ? 'color: blue' : 'cancelado' ? 'color: red' : 'A caminho' ? 'color: yellow' : 'color: green' "
+            :style="item.status === 'criado' ? 'color: blue' : item.status === 'cancelado' ? 'color: red' : item.status === 'A caminho' ? 'color: yellow' : 'color: green' "
           > {{ item.status }} </p>
         </template>
         <template v-slot:item.actions="{ item }">

@@ -13,6 +13,10 @@
               outlined
               color="red"
               :rules="[rule.password]"
+              :append-icon="show ? 'mdi-eye-off' : 'mdi-eye'"
+              @click:append="toggleShow"
+              :type="show ? 'text' : 'password'"
+              prepend-inner-icon="mdi-lock"
             />
           </v-col>
           </v-row>
@@ -25,6 +29,10 @@
             label="Nova Senha"
             outlined
             :rules="[rule.password, rule.current]"
+            :append-icon="show2 ? 'mdi-eye-off' : 'mdi-eye'"
+            @click:append="toggleShow2"
+            :type="show2 ? 'text' : 'password'"
+            prepend-inner-icon="mdi-lock"
             />
           </v-col>
           <v-col>
@@ -35,6 +43,10 @@
             label="Confirme a nova senha"
             outlined
             :rules="[rule.password, rule.equalPassword]"
+            :append-icon="show3 ? 'mdi-eye-off' : 'mdi-eye'"
+            @click:append="toggleShow3"
+            :type="show3 ? 'text' : 'password'"
+            prepend-inner-icon="mdi-lock"
             />
           </v-col>
         </v-row>
@@ -58,6 +70,9 @@ export default {
   data () {
     return {
       valid: false,
+      show: false,
+      show2:false,
+      show3:false,
       user: {  
         current: null,
         new: null,
@@ -94,6 +109,15 @@ export default {
       } catch (error) {
         this.$toast.error(error.message);
       }
+    },
+    toggleShow(){
+      this.show = !this.show
+    },
+    toggleShow2(){
+      this.show2 = !this.show2
+    },
+    toggleShow3(){
+      this.show3 = !this.show3
     },
   }
 }

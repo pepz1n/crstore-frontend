@@ -71,6 +71,45 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <v-list-group
+        color="red"
+        :value="true"
+        prepend-icon="mdi-car"
+        v-if="entregador"
+      >
+        <template v-slot:activator>
+          <v-list-item-title>
+            Entregador
+          </v-list-item-title>
+        </template>
+        <v-list-item
+          color="red"
+          to="/public/user/deliver/deliver"
+        >
+        <v-list-item-action>
+          <v-icon>{{ "mdi-atv"}}</v-icon>
+        </v-list-item-action>
+          Entregas Disponiveis
+        </v-list-item>
+        <v-list-item
+          color="red"
+          to="/public/user/deliver/catched"
+        >
+        <v-list-item-action>
+          <v-icon>{{ "mdi-bike-fast"}}</v-icon>
+        </v-list-item-action>
+          Entregas em andamento
+        </v-list-item>
+        <v-list-item
+          color="red"
+          to="/public/user/deliver/delivered"
+        >
+        <v-list-item-action>
+          <v-icon>{{ "mdi-check"}}</v-icon>
+        </v-list-item-action>
+          Pedidos entregues
+        </v-list-item>
+      </v-list-group>
     </v-navigation-drawer>
     <v-app-bar
       :clipped-left="clipped"
@@ -104,6 +143,7 @@ export default {
       drawer: false,
       fixed: false,
       help: false,
+      entregador: false,
       user: [],
       items: [
         {
@@ -143,6 +183,9 @@ export default {
       }
       let response = await this.$axios.post('http://localhost:3333/users/verify-token', {"authorization": `Bearer ${token}`})
       console.log(response);
+      if(response.data.role == "deliver"){
+        this.entregador= true
+      }
       if (response.data.type == 'unauthorized') {
         this.$toast.info('Bem vindo a Lojinha!');
         this.help = true
