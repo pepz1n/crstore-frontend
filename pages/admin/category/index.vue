@@ -85,7 +85,7 @@ export default {
   
   methods: {
      async getCategory (){
-      let categorias = await this.$api.$get(`/category`)
+      let categorias = await this.$api.$get(`/category/get-all-categories`)
       this.categorias = categorias.data
      },
      async deletar (categoriaDelete){

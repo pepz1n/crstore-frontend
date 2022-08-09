@@ -19,6 +19,11 @@
         :items-per-page="10"
         class="elevation-1"
       >
+      <template v-slot:item.status="{ item }">
+          <p 
+            :style="item.status === 'criado' ? 'color: blue' : item.status === 'cancelado' ? 'color: red' : item.status === 'A caminho' ? 'color: yellow' : 'color: green' "
+          > {{ item.status }} </p>
+        </template>
         <template v-slot:item.actions="{ item }">
           <v-icon
             small
@@ -95,7 +100,7 @@ export default {
      },
      async editar (order) {
       this.$router.push({
-        name: 'public-user-deliver-info-info',
+        name: 'public-user-order-view',
         params: { id: order.id }
       });
     }

@@ -4,7 +4,7 @@
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
-      color="white"
+      fixed
       app
     >
     <v-list-group
@@ -114,9 +114,6 @@
     <v-app-bar
       :clipped-left="clipped"
       fixed
-      elevation="0"
-      hide-on-scroll
-      color="white"
       app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -177,17 +174,16 @@ export default {
     async validateLoginAdmin (){
       let token = localStorage.getItem('forget-key')
       if(!token){
-        this.items.unshift({
-          icon: 'mdi-account',
-          title: 'Login',
-          to: '/public/login'
-        })
-        return this.$toast.info('Bem vindo anônimo');
+        this.$toast.info('Você não tem permissão para acessar esse recurso');
+        return this.$router.push({ name: 'public-login' });
       }
       let response = await this.$axios.post('http://localhost:3333/users/verify-token', {"authorization": `Bearer ${token}`})
       console.log(response);
       if(response.data.role == "deliver"){
         this.entregador= true
+      }else{
+        this.$toast.info('Você não tem permissão para acessar esse recurso');
+        return this.$router.push({ name: 'index' });
       }
       if (response.data.type == 'unauthorized') {
         this.$toast.info('Bem vindo a Lojinha!');
@@ -238,7 +234,7 @@ export default {
           to:'/admin/order'
         })
       }
-    } 
+    },
   }
 }
 </script>

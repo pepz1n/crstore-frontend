@@ -56,6 +56,33 @@
             >
             </v-autocomplete>
           </v-col>
+          <v-col>
+            <v-text-field
+              v-model="product.image"
+              placeholder="Link da Imagem"
+              label="Link da Imagem"
+              color="red"
+              :rules="rule"
+              required
+              max = 2000
+              outlined
+            />
+          </v-col>
+          <v-col>
+            <v-img :src="product.image" style="max-width: 300px; max-height: 150px;"></v-img>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-textarea
+              v-model="product.description"
+              placeholder="Descrição"
+              label="Descrição"
+              color="red"
+              :rules="rule"
+              outlined
+            />
+          </v-col>
         </v-row>
       </v-container>
       </v-form>
@@ -88,7 +115,9 @@ export default {
         id: null,
         name:null,
         idCategory: null,
-        price: null
+        price: null,
+        image: null,
+        description: null
       },
       rule: [
         v => !!v || 'Esse campo é obrigatório'
@@ -101,7 +130,7 @@ export default {
     if (this.$route?.params?.id) {
     this.getById(this.$route.params.id)
     }
-    let categories = await this.$api.get('/category')
+    let categories = await this.$api.get('/category/get-all-categories')
     this.categories = categories.data.data
     console.log(categories);
     console.log(this.categories);
@@ -113,7 +142,9 @@ export default {
          let product = {
         name: this.product.name,
         idCategory: this.product.idCategory,
-        price:this.product.price
+        price:this.product.price,
+        image: this.product.image,
+        description: this.product.description
         };
 
         if(!this.product.id){  

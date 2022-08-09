@@ -98,6 +98,7 @@ export default {
   methods: {
      async getProducts (){
       let product = await this.$api.$get(`/product`)
+      console.log(product.data);
       this.product = product.data
      },
      async deletar (categoriaDelete){
