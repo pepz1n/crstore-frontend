@@ -1,10 +1,9 @@
 <template>
     <v-main  style="width: 100%;">
     <v-container>
-      <h1 style="text-align: center; font-size:100px">Bem Vindo A LOJA</h1>
+      <h1 style="text-align: center; font-size:80px; font-family: cu;">Bem Vindo A LOJA</h1>
     </v-container>
-      <v-container style="margin-top:10
-      %">
+      <v-container style="margin-top:10%">
         <v-row>
           <template v-for="(category, i) in categories" >
             <v-col
