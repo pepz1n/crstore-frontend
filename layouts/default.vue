@@ -119,9 +119,18 @@
       color="white"
       app
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title v-text="title" />
       <v-spacer />
+      <v-btn
+        outlined
+        to="/public/user/cart"
+        color="white"
+      >
+      <v-icon style="margin-right: 2%;color:black" >
+        {{ "mdi-cart" }}
+      </v-icon>
+      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
