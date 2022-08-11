@@ -117,7 +117,11 @@ import Swal from 'sweetalert2'
       },
       async addCart (item) {
         console.log(item);
-
+          let responses = await this.$api.post('/users/verify-token')
+          console.log(responses)
+          if(responses.data.type == 'expired' || responses.data.message == 'Token não informado'){
+            return this.$toast.warning("Você precisa Entrar na conta antes de adicionar ao carinho")
+          }
           let {value: quantidade} = await Swal.fire({
           title: `Deseja adicionar quantas quantidades de ${item.name} ao carrinho? `,
           input: 'number',
@@ -127,8 +131,8 @@ import Swal from 'sweetalert2'
           cancelButtonText: 'Cancelar',
           showCancelButton:true,
           inputValidator: (value) => {
-            if (!value){
-              return 'Voce Precisa Informar a quantidade!'
+            if (!value || Math.floor(value) != value) {
+              return 'Voce Precisa Informar a quantidade valida!'
             }
           }
         })

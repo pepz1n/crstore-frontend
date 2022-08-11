@@ -38,7 +38,7 @@
                 <v-col>
                   <v-text-field
                       class=""
-                      label="Username"
+                      label="Senha"
                       v-model="login.password"
                       style="margin-top: -8%"
                       outlined

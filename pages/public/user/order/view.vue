@@ -93,11 +93,23 @@
             />
           </v-col>
         </v-row>
+        <v-row>
+          <v-col 
+            cols="max"
+          >
+           <v-data-table
+            :headers="headers"
+            :items="order.product"
+            :items-per-page="10"
+            class="elevation-1"
+          ></v-data-table>
+          </v-col>
+        </v-row>
       </v-container>
       </v-form>
     <v-btn
       outlined
-      to="/admin/order"
+      to="/public/user/order"
       color="red"
     >
       cancelar
@@ -124,9 +136,35 @@ export default {
         idUserDeliver:null,
         idCupom:null,
         totalDiscount:null,
-        product: []
+        product: [],
 
       },
+      headers:[
+        {
+          text: 'Código',
+          align: 'center',
+          sortable: false,
+          value: 'id',
+        },
+        {
+          text: 'Produto',
+          align: 'center',
+          sortable: false,
+          value: 'name'
+        },
+        {
+          text: 'Quantidade',
+          align: 'center',
+          sortable: false,
+          value: 'orders_products.quantity'
+        },
+        {
+          text: 'Valor Unitario',
+          align: 'center',
+          sortable: false,
+          value: 'orders_products.price_products'
+        }
+      ],
       rule: [
         v => !!v || 'Esse campo é obrigatório'
       ],
@@ -142,14 +180,12 @@ export default {
   methods: {
     async getById (id) {
       let order = await this.$api.$get(`/order/${id}`);
-      console.log(order);
       this.order = order.data
-      this.order.total = Number(this.order.total)
-      this.order.totalDiscount = Number(this.order.totalDiscount)
-      console.log(order.data.total);
+      console.log(order.data);
       this.order.idUserCostumer = order.data.idUserCostumer.name
       this.order.idUserDeliver = order.data.idUserCostumer.name? order.data.idUserCostumer.name : "Sem entregador"
-      },
+      console.log(order.data);
+    },
   }
 }
 </script>
