@@ -189,7 +189,7 @@ export default {
   async created(){
     if (this.$route?.params?.cart) {
     this.cart = this.$route.params.cart
-    this.cupom = this.$route.params.cupom || "Sem Cupom"
+    this.cupom = this.$route.params.cupom || null
     this.discount = this.$route.params.discount
     this.total = this.$route.params.total
     this.totalLiquido = this.$route.params.totalLiquido
