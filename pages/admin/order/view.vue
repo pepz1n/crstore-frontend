@@ -186,6 +186,7 @@ export default {
       console.log(order.data.total);
       this.order.idUserCostumer = order.data.idUserCostumer.name
       this.order.idUserDeliver = order.data.idUserCostumer.name? order.data.idUserCostumer.name : "Sem entregador"
+      this.order.idUserDeliver = order.data.idAdress ? order.data.idUserCostumer.name : "Buscar no Local"
       console.log(order.data.product);
     },
   }

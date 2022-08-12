@@ -119,14 +119,13 @@
                 ></v-text-field>
                 </v-col>
               </v-row>
-              <v-row>
+              <v-row style="margin-top: -8%">
                 <v-col>
                   <v-autocomplete
                     outlined
                     v-model="user.role"
                     label="Cargo"
                     color="red"
-                    style="margin-top: -5%"
                     :items="roles"
                     item-text="name"
                     item-value="value"
@@ -135,6 +134,20 @@
                     :rules="[rule.password]"
                   >
                   </v-autocomplete>
+                </v-col>
+                <v-col>
+                  <v-text-field
+                  class=""
+                  outlined
+                  type="email"
+                  v-model="user.email"
+                  label="Email"
+                  placeholder="Email"
+                  color="red"
+                  prepend-inner-icon="mdi-mail"
+                  required
+                  :rules="[rule.password]"
+                ></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
@@ -196,7 +209,8 @@ export default {
           phone: this.user.phone,
           password: this.user.password,
           role: this.user.role,
-          cpf: this.user.cpf
+          cpf: this.user.cpf,
+          email: this.user.email
 
         }
         let response = await this.$axios.$post('http://localhost:3333/users', user)

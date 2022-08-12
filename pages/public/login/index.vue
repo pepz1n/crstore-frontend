@@ -53,7 +53,7 @@
               </v-row>
               <v-row>
                 <v-col style="margin-top:-10% ;">
-                   <a href="/public/login/register" class="" style="margin-top: -10%;color: red;">Esqueci minha senha</a>
+                   <a href="/public/login/forget" class="" style="margin-top: -10%;color: red;">Esqueci minha senha</a>
                 </v-col>
               </v-row>
               <v-row>

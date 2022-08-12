@@ -244,8 +244,8 @@ export default {
           if (value > Number(item.quantidade)){
             return 'Você só pode remover ' + item.quantidade + ' produtos'
           }
-          if (!value){
-            return 'Voce Precisa Informar a quantidade!'
+          if (!value || Math.floor(value) != value){
+            return 'Voce Precisa Informar uma quantidade válida!'
           }
         }
         })

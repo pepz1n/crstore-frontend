@@ -210,7 +210,7 @@ export default {
           return this.$toast.error("Informe o endereço!")
         }
         let endereco = null
-        if(this.idAddress != 99){
+        if(this.idAddress != 100){
           endereco = this.idAddress
         }
 
@@ -224,10 +224,12 @@ export default {
           cadastro.products.push({"produto": item.produto, "quantidade": item.quantidade})
         });
         console.log(cadastro);
-        let response = await this.$api.post("/order", cadastro)
+        await this.$api.post("/order", cadastro)
         await this.$api.get('/reset-carrinho')
         this.$toast.success("Ordem cadastrada")
-        return this.$route.push("/ ")
+        this.$router.push({
+        name: 'index'
+      });
       } catch (error) {
         this.$toast.error("F!")
       }

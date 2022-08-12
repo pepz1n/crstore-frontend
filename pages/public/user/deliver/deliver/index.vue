@@ -32,12 +32,6 @@
           >
             mdi-magnify
           </v-icon>
-          <v-icon
-            small
-            @click="deletar(item)"
-          >
-            mdi-cancel
-          </v-icon>
         </template>
       </v-data-table>
       </v-col>
@@ -101,17 +95,6 @@ export default {
      async getOrder (){
       let order = await this.$api.$get(`/order/get-order-avaiable`)
       this.order = order.data
-     },
-     async deletar (orderDelete){
-      try{
-        if(confirm(`Deseja cancelar a order : ${orderDelete.id} ?`)){
-          let response = await this.$api.$post('/order/cancel-customer',{orderId: orderDelete.id} )
-          this.$toast.success(response.message)
-          this.getOrder();
-        }
-      }catch(error){
-        this.$toast.error(error.message)
-      }
      },
      async editar (order) {
       this.$router.push({

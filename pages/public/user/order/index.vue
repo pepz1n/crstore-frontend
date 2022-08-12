@@ -32,6 +32,12 @@
           >
             mdi-magnify
           </v-icon>
+          <v-icon
+            small
+            @click="deletar(item)"
+          >
+            mdi-cancel
+          </v-icon>
         </template>
       </v-data-table>
       </v-col>
@@ -103,7 +109,18 @@ export default {
         name: 'public-user-order-view',
         params: { id: order.id }
       });
-    }
+    },
+    async deletar (orderDelete){
+      try{
+        if(confirm(`Deseja cancelar a order : ${orderDelete.id} ?`)){
+          let response = await this.$api.$post('/order/cancel-customer',{orderId: orderDelete.id} )
+          this.$toast.success(response.message)
+          this.getOrder();
+        }
+      }catch(error){
+        this.$toast.error(error.message)
+      }
+     },
   },
   async beforeMount(){
     await this.getOrder()
